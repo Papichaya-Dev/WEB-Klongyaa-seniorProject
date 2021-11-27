@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.home,
+.history,
+.forgottenRate,
+.pillstock {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
