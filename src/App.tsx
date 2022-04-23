@@ -8,14 +8,14 @@ import Home from "./components/page/Home/views/Home";
 import History from "./components/page/History/views/History";
 import ForgottenRate from "./components/page/ForgottenRate/views/ForgottenRate";
 import PillStock from "./components/page/PillStock/views/PillStock";
-
+import Dashboard from "./components/page/Dashboard/Dashboard";
 function App() {
   return (
     <>
       <Router>
-        <Navbar />
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/home" component={Home} />
           <Route path="/history" component={History} />
           <Route path="/forgottenRate" component={ForgottenRate} />
           <Route path="/pillstock" component={PillStock} />

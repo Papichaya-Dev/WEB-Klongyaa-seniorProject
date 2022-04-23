@@ -1,11 +1,13 @@
-import React from "react";
+import Navbar from "../../../common/Navbar";
 
-function Home() {
+const Home = () => {
   return (
     <>
-      <div> Home page</div>
+      <Navbar />
+      {/* <div> Home page</div>
+      <div style={{ width: "100%", position: "absolute" }}></div> */}
     </>
   );
-}
+};
 
 export default Home;
