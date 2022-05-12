@@ -1,6 +1,13 @@
 import Navbar from "../../../common/Navbar";
+import React, { useEffect, useState } from "react";
+import { ApiGetPillChannelDatas } from "../api/Home.api";
 
 const Home = () => {
+  const [dataList, setDataList] = useState([]);
+
+  useEffect(() => {
+    ApiGetPillChannelDatas();
+  }, []);
   return (
     <>
       <Navbar />
