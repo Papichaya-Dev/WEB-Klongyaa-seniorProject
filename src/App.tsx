@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./components/common/Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //------- import page ----------------------------------------------------
@@ -8,7 +7,8 @@ import Home from "./components/page/Home/views/Home";
 import History from "./components/page/History/views/History";
 import ForgottenRate from "./components/page/ForgottenRate/views/ForgottenRate";
 import PillStock from "./components/page/PillStock/views/PillStock";
-import Dashboard from "./components/page/Dashboard/Dashboard";
+import Dashboard from "./components/page/Login/Login";
+
 function App() {
   return (
     <>
