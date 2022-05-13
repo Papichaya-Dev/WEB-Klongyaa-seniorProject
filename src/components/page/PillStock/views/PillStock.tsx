@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../common/Navbar";
+import Navbar from "../../../common/Sidebar";
 import { Text_Topic } from "../styles/PillStock.style";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "../../../../config/axiosInstance";

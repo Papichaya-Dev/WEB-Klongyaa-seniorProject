@@ -1,4 +1,4 @@
-import Navbar from "../../../common/Navbar";
+import Navbar from "../../../common/Sidebar";
 import React, { useEffect, useState } from "react";
 import { ApiGetPillChannelDatas } from "../api/Home.api";
 
