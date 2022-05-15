@@ -1,7 +1,8 @@
-import { Col, Row } from "antd";
+import { Col, Row, Select } from "antd";
 import styled from "styled-components";
 import calendar from "../images/calendar.png";
 import ReactApexChart from "react-apexcharts";
+import { Option } from "antd/lib/mentions";
 
 export const Text_Topic = styled.div`
   font-weight: bolder;
@@ -45,4 +46,14 @@ export const Container = styled.div`
   align-items: center;
   margin-left: 150px;
   margin-top: 20px;
+`;
+
+export const Selete_Filter = styled(Select)`
+  & .ant-select-selector {
+    border-radius: 10px !important;
+    background-color: #f4f4f4 !important;
+    cursor: pointer;
+    padding-left: 10px;
+    width: 130px !important;
+  }
 `;

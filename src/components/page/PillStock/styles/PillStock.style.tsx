@@ -19,10 +19,12 @@ export const Table_PillStock = styled(Table)`
   & .ant-table-container table {
     text-align: center;
     width: 85%;
+    font-size: 18px;
   }
 
   & .ant-table-thead > tr > th {
     text-align: center;
+    font-size: 20px;
   }
 `;
 

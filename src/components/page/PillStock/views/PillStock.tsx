@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../common/Sidebar";
 import { Column_PillName, Container_Table, Table_PillStock, Text_Topic } from "../styles/PillStock.style";
-import { DataGrid } from "@mui/x-data-grid";
 import axios from "../../../../config/axiosInstance";
-import { Table, Tag } from "antd";
 import Column from "antd/lib/table/Column";
 
 interface IPillStockChannel {
@@ -20,13 +18,6 @@ interface IStockHistory {
   dateTime: Date;
   amount: number;
 }
-
-// const columns = [
-//   { field: "id", headerName: "ช่องที่" },
-//   { field: "pill_name", headerName: "ชื่อยา", width: 200 },
-//   { field: "total", headerName: "จำนวนยาทั้งหมด", width: 200 },
-//   { field: "stock", headerName: "คงเหลือ", width: 200 },
-// ];
 
 const columns = [
   { title: "ช่องที่", dataIndex: "id", key: "id" },
@@ -92,7 +83,7 @@ function PillStock() {
       <Navbar />
       <Text_Topic>จำนวนยาคงเหลือ</Text_Topic>
       <Container_Table>
-        <Table_PillStock dataSource={tableData} pagination={false}>
+        <Table_PillStock dataSource={tableData} pagination={false} rowClassName={() => "rowClassName1"}>
           <Column_PillName title="ช่องที่" dataIndex="id" key="id" />
           <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
           <Column title="จำนวนยาทั้งหมด" dataIndex="total" key="total" />
