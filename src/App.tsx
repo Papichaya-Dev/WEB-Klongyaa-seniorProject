@@ -8,6 +8,7 @@ import History from "./components/page/History/views/History";
 import ForgottenRate from "./components/page/ForgottenRate/views/ForgottenRate";
 import PillStock from "./components/page/PillStock/views/PillStock";
 import Dashboard from "./components/page/Login/Login";
+import DetailPillScreen from "components/page/Home/views/DetailPillPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/history" component={History} />
           <Route path="/forgottenRate" component={ForgottenRate} />
           <Route path="/pillstock" component={PillStock} />
+          <Route exact path="/detailPillScreen/:id" component={DetailPillScreen} />
         </Switch>
       </Router>
     </>

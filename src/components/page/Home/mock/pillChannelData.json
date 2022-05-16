@@ -1,0 +1,12 @@
+{
+    "pill_channel_datas": [
+        {
+            "channel_id": 3,
+            "pill_name": "ยาเบาหวาน"
+        },
+        {
+            "channel_id": 6,
+            "pill_name": "ยาความดัน"
+        }
+    ]
+}

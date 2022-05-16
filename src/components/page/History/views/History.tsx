@@ -4,6 +4,8 @@ import Navbar from "../../../common/Sidebar";
 import axios from "../../../../config/axiosInstance";
 import { Container_Selete, Selete_Filter, Text_Topic, Container_Table, Table_History } from "./History.style";
 import Column from "antd/lib/table/Column";
+import history from "../mock/history.json";
+
 const { Option } = Select;
 
 //===================== CREATE INTERFACE =====================//
@@ -16,28 +18,29 @@ interface IHistory {
 
 function History() {
   const [selectTime, setSelectTime] = useState("สัปดาห์นี้");
-  const [tableHistoryData, setTableHistoryData] = useState<any | undefined>();
+  const [tableHistoryData, setTableHistoryData] = useState<IHistory | undefined | any>();
 
   function handleChange(value: any) {
     console.log(`selected ${value}`);
     setSelectTime(`${value}`);
   }
 
-  async function ApiGetHistory() {
-    return await axios
-      .get("/history?filter=week")
-      .then((response) => {
-        setTableHistoryData(response.data["histories"]);
-        return response.data;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+  // async function ApiGetHistory() {
+  //   return await axios
+  //     .get("/history?filter=week")
+  //     .then((response) => {
+  //       setTableHistoryData(response.data["histories"]);
+  //       return response.data;
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }
   console.log("History", tableHistoryData);
 
   useEffect(() => {
-    ApiGetHistory();
+    // ApiGetHistory();
+    setTableHistoryData(history["histories"]);
   }, []);
   return (
     <>
