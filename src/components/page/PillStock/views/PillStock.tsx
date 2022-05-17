@@ -41,18 +41,19 @@ function PillStock() {
   useEffect(() => {
     let arr = [];
     let pillStockArr: IPillStockChannel[] = pillStocks["pillStocks"];
-    for (let i = 0; i <= 6; i++) {
-      if (isInArray(i + 1, pillStockArr)) {
+    for (let i = 1; i <= 7; i++) {
+      const data = pillStockArr.filter((pill) => pill.channel_id === i);
+      if (data.length > 0) {
         arr.push({
-          id: pillStockArr[i].channel_id,
-          pill_name: pillStockArr[i]["pill_name"],
-          total: pillStockArr[i]["total"],
-          stock: pillStockArr[i]["stock"],
-          latest_stock: pillStockArr[i]["latest_stock"],
+          id: data[0].channel_id,
+          pill_name: data[0]["pill_name"],
+          total: data[0]["total"],
+          stock: data[0]["stock"],
+          latest_stock: data[0]["latest_stock"],
         });
       } else {
         arr.push({
-          id: i + 1,
+          id: i,
           pill_name: "-",
           total: "-",
           stock: "-",

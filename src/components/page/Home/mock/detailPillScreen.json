@@ -1,0 +1,9 @@
+{
+    "pill_name": "ยาเบาหวาน",
+    "total_pill": 30,
+    "pill_amount": 2,
+    "times" : [
+        "08.00",
+        "18.00"
+    ]
+}
