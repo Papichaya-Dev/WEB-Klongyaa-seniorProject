@@ -1,21 +1,30 @@
 import Navbar from "components/common/Sidebar";
 import React, { useEffect, useState } from "react";
 import {
+  Back_Button,
   Box_Main_Pill_Name,
+  Button_Dont_Eat,
   Button_Save,
   Container_Main_Pill_Name,
   Input_Main_Pill_Name,
   Input_Pill_Name,
   Line_Horizontal,
   NotificationCreatedPostSuccess,
+  Prohibition_Box,
   Span_Field,
+  Span_Field_Properties,
   Span_Main_Pill_Name,
   Text_Check_Input,
   Text_Pill_Name,
   Text_Task,
   Text_Topic,
+  Text_Topic_Feature,
+  Text_Topic_Properties,
 } from "../styles/DetailPillScreen.style";
 import mockDetailPill from "../mock/detailPillScreen.json";
+import { Tooltip } from "antd";
+import { QuestionOutlined } from "@ant-design/icons";
+import mockPropotiesPill from "../mock/propotiesPill.json";
 
 interface IDetailPill {
   pill_name: string;
@@ -49,8 +58,9 @@ function DetailPillScreen() {
   return (
     <>
       <Navbar />
+      <Back_Button />
       {isShowNotification ? (
-        <NotificationCreatedPostSuccess message="สร้างกระทู้สำเร็จเเล้ว" type="success" showIcon />
+        <NotificationCreatedPostSuccess message="บันทึกข้อมูลสำเร็จ" type="success" showIcon />
       ) : (
         <>
           <Text_Topic>
@@ -85,9 +95,13 @@ function DetailPillScreen() {
             );
           })}
           <Line_Horizontal />
-          {/* {inputMainPillName === "" ? <Text_Check_Input>
-        คุณยังไม่ได้กรอกข้อมูลเพิ่มเติม <span style={{ fontWeight: "350" }}>กรอกข้อมูลเพื่อที่ระบบจะประมวลผลคุณสมบัติของยา</span>
-      </Text_Check_Input> : ""} */}
+          {/* {inputMainPillName === "" ? (
+            <Text_Check_Input>
+              คุณยังไม่ได้กรอกข้อมูลเพิ่มเติม <span style={{ fontWeight: "350" }}>กรอกข้อมูลเพื่อที่ระบบจะประมวลผลคุณสมบัติของยา</span>
+            </Text_Check_Input>
+          ) : (
+            <div style={{ marginBottom: "25px" }}>fggf</div>
+          )} */}
           <Text_Check_Input>
             คุณยังไม่ได้กรอกข้อมูลเพิ่มเติม <span style={{ fontWeight: "350" }}>กรอกข้อมูลเพื่อที่ระบบจะประมวลผลคุณสมบัติของยา</span>
           </Text_Check_Input>
@@ -103,9 +117,27 @@ function DetailPillScreen() {
                 บันทึก
               </Button_Save>
             ) : (
-              <Button_Save>บันทึก</Button_Save>
+              <Button_Save disabled={true}>บันทึก</Button_Save>
             )}
           </Container_Main_Pill_Name>{" "}
+          <Text_Topic_Feature>คุณสมบัติของยา{mockPropotiesPill.pill_name}</Text_Topic_Feature>
+          <Text_Topic_Properties>
+            สรรพคุณ
+            <Span_Field_Properties>{mockPropotiesPill.side_effect}</Span_Field_Properties>
+          </Text_Topic_Properties>
+          <Text_Topic_Properties>
+            ผลข้างเคียง
+            <Span_Field_Properties>{mockPropotiesPill.prohibition}</Span_Field_Properties>
+          </Text_Topic_Properties>
+          <Text_Topic_Properties>
+            ห้ามกินคู่กับยาอะไร
+            <Tooltip placement="right" title={mockPropotiesPill.prohibition_info} overlayStyle={{ width: "300px" }}>
+              <Button_Dont_Eat shape="circle" icon={<QuestionOutlined />} />
+            </Tooltip>
+            {mockPropotiesPill?.prohibition?.map((item, index) => {
+              return <Prohibition_Box key={index}>{item}</Prohibition_Box>;
+            })}
+          </Text_Topic_Properties>
         </>
       )}
     </>

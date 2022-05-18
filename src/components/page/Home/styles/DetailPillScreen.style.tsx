@@ -1,5 +1,6 @@
 import { Alert, Button, Input } from "antd";
 import styled from "styled-components";
+import back_icon from "../image/back_button.png";
 
 export const Text_Topic = styled.div`
   font-weight: bolder;
@@ -61,8 +62,13 @@ export const Span_Main_Pill_Name = styled.span`
 
 export const Input_Main_Pill_Name = styled(Input)`
   border-radius: 5px;
-  margin-left: 10px;
   width: 250px;
+  font-size: 22px;
+  margin-left: 30px;
+
+  & .ant-input[disabled] {
+    font-size: 24px;
+  }
 `;
 
 export const Button_Save = styled(Button)`
@@ -99,17 +105,76 @@ export const Text_Check_Input = styled.div`
 
 export const NotificationCreatedPostSuccess = styled(Alert)`
   border-radius: 30px;
-  width: 35%;
+  width: 20%;
   background-color: #c8eee2;
   border-color: #c8eee2;
-  font-weight: bolder;
-  margin-left: auto;
-  margin-right: auto;
-  position: fixed;
-  top: 10%;
-  left: 32%;
-  z-index: 9999;
+  text-align: center;
+  position: absolute;
+  left: 40%;
+  top: 5%;
+  font-size: 24px;
+  z-index: 1;
+  font-weight: normal;
+
   .ant-alert-message {
     color: #125d45;
   }
+`;
+
+export const Text_Topic_Feature = styled.div`
+  font-size: 22px;
+  margin-left: 25%;
+  padding-top: 230px;
+  margin-bottom: 10px;
+`;
+
+export const Text_Topic_Properties = styled.div`
+  font-size: 22px;
+  margin-left: 25%;
+  margin-bottom: 10px;
+`;
+
+export const Span_Field_Properties = styled.span`
+  margin-left: 20px;
+  color: #ff0000;
+  font-weight: 300;
+`;
+
+export const Button_Dont_Eat = styled(Button)`
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+  margin-left: 10px;
+`;
+
+export const Span_Field_Dont_Eat = styled.span`
+  margin-left: 50px;
+  color: #ff0000;
+  font-weight: 300;
+`;
+
+export const Span_Tooltip_Dont_Eat = styled.span`
+  margin-left: 10px;
+  font-weight: 300;
+`;
+
+export const Prohibition_Box = styled.div`
+  padding-left: 20%;
+  transform: translateY(-35px);
+  font-weight: 300;
+  color: #ff0000;
+`;
+
+export const Back_Button = styled(Button)`
+  background-image: url(${back_icon});
+  width: 45px;
+  height: 45px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  max-width: 30px;
+  height: 30px;
+  display: block;
+  margin-left: auto;
 `;
