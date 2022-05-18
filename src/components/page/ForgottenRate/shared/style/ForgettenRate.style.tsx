@@ -2,7 +2,6 @@ import { Col, Row, Select } from "antd";
 import styled from "styled-components";
 import calendar from "../images/calendar.png";
 import ReactApexChart from "react-apexcharts";
-import { Option } from "antd/lib/mentions";
 
 export const Text_Topic = styled.div`
   font-weight: bolder;

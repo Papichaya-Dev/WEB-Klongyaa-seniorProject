@@ -1,4 +1,4 @@
-import { Button, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import styled from "styled-components";
 
 export const Row_Container = styled(Row)`
@@ -24,4 +24,32 @@ export const Button_Tooltip = styled(Button)`
   bottom: 50px;
   width: 45px;
   height: 45px;
+`;
+
+export const Box_Pill_Channel = styled(Col)`
+  background-color: #fcff7d;
+  cursor: pointer;
+`;
+
+export const Pill_Channel_No = styled.div`
+  background-color: #eb5f91;
+  color: white;
+  border-radius: 35px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 140px;
+  height: 5vh;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+`;
+
+export const Pill_Name = styled.div`
+  margin-top: 10px;
+
+  text-align: center;
+  font-size: 30px;
+  color: #3a3055;
+  font-weight: bolder;
 `;
