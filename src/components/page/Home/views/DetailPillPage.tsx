@@ -1,4 +1,4 @@
-import Navbar from "components/common/Sidebar";
+import Navbar from "../../../common/sidebar/Sidebar";
 import React, { useEffect, useState } from "react";
 import {
   Back_Button,

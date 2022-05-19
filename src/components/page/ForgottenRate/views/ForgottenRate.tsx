@@ -1,6 +1,6 @@
 import { Col } from "antd";
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../common/Sidebar";
+import Navbar from "../../../common/sidebar/Sidebar";
 import { Calendar_Icon, Col_Date, Row_Container_Date, Selete_Filter, Text_Topic } from "../shared/style/ForgettenRate.style";
 import ChartForgettenMonth from "./ChartForgettenMonth";
 import ChartForgettenWeek from "./ChartForgettenWeek";

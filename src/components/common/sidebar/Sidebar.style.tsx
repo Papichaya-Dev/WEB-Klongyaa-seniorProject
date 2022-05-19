@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import sidebar from "../../shared/images/sidebar.png";
-import pill_profile from "../../shared/images/pill_profile.png";
-import logout_button from "../../shared/images/logout.png";
+import sidebar from "../../../shared/images/sidebar.png";
+import pill_profile from "../../../shared/images/pill_profile.png";
+import logout_button from "../../../shared/images/logout.png";
 import { Button } from "antd";
 
 export const Sidebar = styled.div`
@@ -28,7 +28,8 @@ export const Pill_Profile = styled.div`
 export const Text_Center = styled.div`
   text-align: center;
   color: white;
-  margin-top: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 `;
 
 export const Logout_Button = styled(Button)`

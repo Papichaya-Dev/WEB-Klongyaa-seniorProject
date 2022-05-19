@@ -1,6 +1,6 @@
 import { Select, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../common/Sidebar";
+import Navbar from "../../../common/sidebar/Sidebar";
 import axios from "../../../../config/axiosInstance";
 import { Container_Selete, Selete_Filter, Text_Topic, Container_Table, Table_History } from "./History.style";
 import Column from "antd/lib/table/Column";
@@ -54,7 +54,7 @@ function History() {
         </Selete_Filter>
       </Container_Selete>
       <Container_Table>
-        <Table_History dataSource={tableHistoryData} pagination={false} rowClassName={() => "rowClassName1"}>
+        <Table_History dataSource={tableHistoryData} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
           <Column title="เวลา" dataIndex="time" key="time" />
           <Column title="วันที่" dataIndex="date" key="date" />
           <Column title="รายการ" dataIndex="task" key="task" />

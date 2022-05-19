@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { IAuth } from "./interface/User.interface";
 import axios from "../../../../config/axiosInstance";
+import jwt from "jwt-decode";
 
 const AuthContext = React.createContext<any>(null);
 interface IAuthProps {
@@ -23,6 +24,20 @@ const AuthProvider = ({ children }: IAuthProps) => {
         setUser(response.data);
         console.log(accessToken);
         return user;
+      })
+      .catch((err) => {
+        console.error("ERROR CANNOT LOGIN", err);
+      });
+  }
+
+  async function refreshTokenFunc() {
+    return await axios
+      .post("/auth/refreshToken", {}, { headers: { Authorization: `Bearer ${refreshToken}` } })
+      .then((response) => {
+        if (response.data.access_token) localStorage.setItem("accessToken", response.data.access_token);
+        if (response.data.refresh_token) localStorage.setItem("refreshToken", response.data.refresh_token);
+        setAccessToken(localStorage.getItem("accessToken"));
+        setRefreshToken(localStorage.getItem("refreshToken"));
       })
       .catch((err) => {
         console.error("ERROR CANNOT LOGIN", err);

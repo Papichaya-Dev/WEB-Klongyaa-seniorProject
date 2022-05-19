@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../common/Sidebar";
+import Navbar from "../../../common/sidebar/Sidebar";
 import { Column_PillName, Container_Table, Table_PillStock, Text_Topic } from "../styles/PillStock.style";
 import axios from "../../../../config/axiosInstance";
 import Column from "antd/lib/table/Column";
 import pillStocks from "../mock/pillStocks.json";
+import { useAuthContext } from "components/page/Login/Auth/AuthContext";
+import { CheckExpiredToken } from "common/checkExpiredToken";
 
 interface IPillStockChannel {
-  channel_id: number;
+  channel_id: string;
   pill_name: string;
   total: number;
   stock: number;
-  latest_stock: string;
-}
-interface IStockHistory {
-  time: string;
-  date: string;
-  dateTime: Date;
-  amount: number;
+  created_at: string;
+  cid?: string;
+  take_time?: string[];
 }
 
 const columns = [
@@ -27,83 +25,78 @@ const columns = [
   { title: "วันที่บรรจุยา", dataIndex: "latest_stock", key: "latest_stock" },
 ];
 
+// const refreshToken: any = localStorage.getItem("refreshToken");
+
 function PillStock() {
   const [tableData, setTableData] = useState<any | undefined>();
 
   function isInArray(index: number, arr: IPillStockChannel[]) {
     let flag = 0;
     arr?.map((item) => {
-      if (index === item.channel_id) flag = 1;
+      if (index.toString() === item.channel_id) flag = 1;
     });
     return flag === 0 ? false : true;
   }
 
-  useEffect(() => {
-    let arr = [];
-    let pillStockArr: IPillStockChannel[] = pillStocks["pillStocks"];
-    for (let i = 1; i <= 7; i++) {
-      const data = pillStockArr.filter((pill) => pill.channel_id === i);
-      if (data.length > 0) {
-        arr.push({
-          id: data[0].channel_id,
-          pill_name: data[0]["pill_name"],
-          total: data[0]["total"],
-          stock: data[0]["stock"],
-          latest_stock: data[0]["latest_stock"],
-        });
-      } else {
-        arr.push({
-          id: i,
-          pill_name: "-",
-          total: "-",
-          stock: "-",
-          latest_stock: "-",
-        });
+  // useEffect(() => {
+  //   let arr = [];
+  //   let pillStockArr: IPillStockChannel[] = pillStocks["pillStocks"];
+  //   for (let i = 1; i <= 7; i++) {
+  //     const data = pillStockArr.filter((pill) => pill.channel_id === i);
+  //     if (data.length > 0) {
+  //       arr.push({
+  //         id: data[0].channel_id,
+  //         pill_name: data[0]["pill_name"],
+  //         total: data[0]["total"],
+  //         stock: data[0]["stock"],
+  //         latest_stock: data[0]["latest_stock"],
+  //       });
+  //     } else {
+  //       arr.push({
+  //         id: i,
+  //         pill_name: "-",
+  //         total: "-",
+  //         stock: "-",
+  //         latest_stock: "-",
+  //       });
+  //     }
+  //   }
+  //   setTableData(arr);
+  // }, []);
+
+  async function ApiGetPillStock() {
+    const accessToken: string = await CheckExpiredToken();
+    return await axios.get("/pill-data/getPillStock", { headers: { Authorization: `Bearer ${accessToken}` } }).then((response) => {
+      console.log("Pill channel datas :", response.data["pillStock"]);
+      let arr = [];
+      let pillStockArr: IPillStockChannel[] = response.data["pillStock"];
+      for (let i = 1; i <= 7; i++) {
+        const data = pillStockArr.filter((pill) => pill.channel_id === i.toString());
+        if (data.length > 0) {
+          arr.push({
+            id: data[0].channel_id,
+            pill_name: data[0]["pill_name"],
+            total: data[0]["total"],
+            stock: data[0]["stock"],
+            created_at: data[0]["created_at"],
+          });
+        } else {
+          arr.push({
+            id: i,
+            pill_name: "-",
+            total: "-",
+            stock: "-",
+            created_at: "-",
+          });
+        }
       }
-    }
-    setTableData(arr);
-  }, []);
-
-  // async function ApiGetPillStock() {
-  //   return await axios
-  //     .get("/pillStock")
-  //     .then((response) => {
-  //       console.log("Pill channel datas :", response.data);
-  //       // setTableData(response.data["pillStocks"]);
-  //       let arr = [];
-  //       let pillStockArr: IPillStockChannel[] = response.data["pillStocks"];
-  //       for (let i = 0; i <= 6; i++) {
-  //         if (isInArray(i + 1, pillStockArr)) {
-  //           arr.push({
-  //             id: pillStockArr[i].channel_id,
-  //             pill_name: pillStockArr[i]["pill_name"],
-  //             total: pillStockArr[i]["total"],
-  //             stock: pillStockArr[i]["stock"],
-  //             latest_stock: pillStockArr[i]["latest_stock"],
-  //           });
-  //         } else {
-  //           arr.push({
-  //             id: i + 1,
-  //             pill_name: "-",
-  //             total: "-",
-  //             stock: "-",
-  //             latest_stock: "-",
-  //           });
-  //         }
-  //       }
-  //       setTableData(arr);
-
-  //       return response.data;
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  //}
-  console.log("this is table", tableData);
+      setTableData(arr);
+    });
+  }
+  console.log("TABLE PILL :", tableData);
 
   useEffect(() => {
-    // ApiGetPillStock();
-    console.log("this is table", tableData);
+    ApiGetPillStock();
   }, []);
   return (
     <>
@@ -115,7 +108,7 @@ function PillStock() {
           <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
           <Column title="จำนวนยาทั้งหมด" dataIndex="total" key="total" />
           <Column title="คงเหลือ" dataIndex="stock" key="stock" />
-          <Column title="วันที่บรรจุ" dataIndex="latest_stock" key="latest_stock" />
+          <Column title="วันที่บรรจุ" dataIndex="created_at" key="created_at" />
         </Table_PillStock>
       </Container_Table>
     </>

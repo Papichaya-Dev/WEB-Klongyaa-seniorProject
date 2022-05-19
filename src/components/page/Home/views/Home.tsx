@@ -1,4 +1,4 @@
-import Navbar from "../../../common/Sidebar";
+import Navbar from "../../../common/sidebar/Sidebar";
 import React, { useEffect, useState } from "react";
 import axios from "../../../../config/axiosInstance";
 import { Button, Col, Row, Tooltip } from "antd";
@@ -7,6 +7,9 @@ import { Text_Topic } from "components/page/History/views/History.style";
 import { QuestionOutlined } from "@ant-design/icons";
 import { useHistory, useParams } from "react-router-dom";
 import pillChannelData from "../mock/pillChannelData.json";
+import { CheckExpiredToken } from "common/checkExpiredToken";
+import { useAuthContext } from "components/page/Login/Auth/AuthContext";
+import jwtDecode from "jwt-decode";
 
 //===================== CREATE INTERFACE =====================//
 interface IPillChannelData {
@@ -17,6 +20,11 @@ function Home() {
   const history = useHistory();
   const paramObjectId = useParams<{ id: string }>();
   const [pillData, setPillData] = useState<IPillChannelData | undefined | any>([]);
+  const { accessToken } = useAuthContext();
+
+  useEffect(() => {
+    CheckExpiredToken();
+  }, []);
 
   // async function ApiGetPillChannelData() {
   //   return await axios

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Background, Button_Login, Button_Login_Form, Forget_Password, Input_Email, Input_Password, Modal_Login, Text_Header, Text_Login } from "./Login.style";
 import { Redirect, useHistory } from "react-router-dom";
 import { LockFilled, MailFilled } from "@ant-design/icons";
@@ -22,6 +22,7 @@ function Login() {
   if (accessToken) {
     return <Redirect to="/home" />;
   }
+
   return (
     <div>
       <Background>
