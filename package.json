@@ -25,6 +25,7 @@
     "atob": "^2.1.2",
     "axios": "^0.24.0",
     "chart": "^0.1.2",
+    "jwt-decode": "^3.1.2",
     "mime": "^3.0.0",
     "react": "^17.0.2",
     "react-apexcharts": "^1.4.0",

@@ -2,7 +2,10 @@ import { SidebarData } from "./SidebarData";
 import { Logout_Button, Logout_Image, Pill_Profile, Sidebar, Text_Center } from "./Sidebar.style";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
+import { useAuthContext } from "components/page/Login/Auth/AuthContext";
 function Navbar() {
+  const { logout } = useAuthContext();
+
   return (
     <>
       <Sidebar className={true ? "nav-menu active" : "nav-menu"}>
@@ -26,7 +29,7 @@ function Navbar() {
             );
           })}
           <span>
-            <Logout_Button>Logout</Logout_Button>
+            <Logout_Button onClick={logout}>Logout</Logout_Button>
             <Logout_Image />
           </span>
         </div>

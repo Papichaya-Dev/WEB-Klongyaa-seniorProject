@@ -7,6 +7,7 @@ import { Text_Topic } from "components/page/History/views/History.style";
 import { QuestionOutlined } from "@ant-design/icons";
 import { useHistory, useParams } from "react-router-dom";
 import pillChannelData from "../mock/pillChannelData.json";
+
 //===================== CREATE INTERFACE =====================//
 interface IPillChannelData {
   channel_id: number;
@@ -15,7 +16,6 @@ interface IPillChannelData {
 function Home() {
   const history = useHistory();
   const paramObjectId = useParams<{ id: string }>();
-
   const [pillData, setPillData] = useState<IPillChannelData | undefined | any>([]);
 
   // async function ApiGetPillChannelData() {
