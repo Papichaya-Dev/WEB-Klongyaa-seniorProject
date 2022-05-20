@@ -1,62 +1,48 @@
 import Navbar from "../../../common/sidebar/Sidebar";
 import React, { useEffect, useState } from "react";
 import axios from "../../../../config/axiosInstance";
-import { Button, Col, Row, Tooltip } from "antd";
+import { Col, Space, Spin, Tooltip } from "antd";
 import { Box_Pill_Channel, Button_Tooltip, Main_Container, Pill_Channel_No, Pill_Name, Row_Container } from "../styles/Home.style";
-import { Text_Topic } from "components/page/History/views/History.style";
+import { Text_Topic } from "components/page/History/styles/History.style";
 import { QuestionOutlined } from "@ant-design/icons";
 import { useHistory, useParams } from "react-router-dom";
-import pillChannelData from "../mock/pillChannelData.json";
 import { CheckExpiredToken } from "common/checkExpiredToken";
-import { useAuthContext } from "components/page/Login/Auth/AuthContext";
-import jwtDecode from "jwt-decode";
 
 //===================== CREATE INTERFACE =====================//
 interface IPillChannelData {
-  channel_id: number;
+  channel_id: string;
   pill_name: string;
 }
 function Home() {
   const history = useHistory();
-  const paramObjectId = useParams<{ id: string }>();
   const [pillData, setPillData] = useState<IPillChannelData | undefined | any>([]);
-  const { accessToken } = useAuthContext();
 
-  useEffect(() => {
-    CheckExpiredToken();
-  }, []);
-
-  // async function ApiGetPillChannelData() {
-  //   return await axios
-  //     .get("/pillChannelDatas")
-  //     .then((response) => {
-  //       setPillData(response.data["pill_channel_datas"]);
-  //       return response.data;
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }
-  // console.log("Pill channel data", pillData);
-
-  useEffect(() => {
-    // ApiGetPillChannelData();
-    let arr: IPillChannelData[] = [];
-    for (let i = 1; i <= 7; i++) {
-      const data = pillChannelData["pill_channel_datas"].filter((pill) => pill.channel_id === i);
-      if (data.length > 0) {
-        arr.push({
-          channel_id: data[0].channel_id,
-          pill_name: data[0].pill_name,
-        });
-      } else {
-        arr.push({
-          channel_id: -1,
-          pill_name: "-1",
-        });
+  async function ApiGetPillChannelData() {
+    const accessToken: string = await CheckExpiredToken();
+    return await axios.get("/pill-data/getHomeChannelData", { headers: { Authorization: `Bearer ${accessToken}` } }).then((response) => {
+      console.log("PILL CHANNEL SCREEN", response.data["pill_channel_datas"]);
+      let arr: IPillChannelData[] = [];
+      let pillChannelData: IPillChannelData[] = response.data["pill_channel_datas"];
+      for (let i = 1; i <= 7; i++) {
+        const data = pillChannelData.filter((pill) => pill.channel_id === i.toString());
+        if (data.length > 0) {
+          arr.push({
+            channel_id: data[0].channel_id,
+            pill_name: data[0].pill_name,
+          });
+        } else {
+          arr.push({
+            channel_id: "-1",
+            pill_name: "-1",
+          });
+        }
       }
-    }
-    setPillData(arr);
+      setPillData(arr);
+    });
+  }
+
+  useEffect(() => {
+    ApiGetPillChannelData();
   }, []);
 
   const checkHaveData = (index: number, spanNum: number) => {
@@ -106,7 +92,15 @@ function Home() {
     <>
       <Navbar />
       <Text_Topic>KLONGYAA CHANNEL</Text_Topic>
-      <Main_Container>{pillData.length === 0 ? <div>loading</div> : channelDataLayout()}</Main_Container>
+      <Main_Container>
+        {pillData.length === 0 ? (
+          <Space size="middle" style={{ marginLeft: "400px" }}>
+            <Spin size="large" />
+          </Space>
+        ) : (
+          channelDataLayout()
+        )}
+      </Main_Container>
       <Tooltip placement="leftBottom" title="จอแสดงผลกล่องยาของผู้ใช้งาน กดเพื่อเข้าไปดูรายละเอียดต่างๆ">
         <Button_Tooltip shape="circle" icon={<QuestionOutlined />} />
       </Tooltip>

@@ -3,9 +3,8 @@ import Navbar from "../../../common/sidebar/Sidebar";
 import { Column_PillName, Container_Table, Table_PillStock, Text_Topic } from "../styles/PillStock.style";
 import axios from "../../../../config/axiosInstance";
 import Column from "antd/lib/table/Column";
-import pillStocks from "../mock/pillStocks.json";
-import { useAuthContext } from "components/page/Login/Auth/AuthContext";
 import { CheckExpiredToken } from "common/checkExpiredToken";
+import { dateFormat } from "utils/DateFormat";
 
 interface IPillStockChannel {
   channel_id: string;
@@ -16,16 +15,6 @@ interface IPillStockChannel {
   cid?: string;
   take_time?: string[];
 }
-
-const columns = [
-  { title: "ช่องที่", dataIndex: "id", key: "id" },
-  { title: "ชื่อยา", dataIndex: "pill_name", key: "pill_name" },
-  { title: "จำนวนยาทั้งหมด", dataIndex: "total", key: "total" },
-  { title: "คงเหลือ", dataIndex: "stock", key: "stock" },
-  { title: "วันที่บรรจุยา", dataIndex: "latest_stock", key: "latest_stock" },
-];
-
-// const refreshToken: any = localStorage.getItem("refreshToken");
 
 function PillStock() {
   const [tableData, setTableData] = useState<any | undefined>();
@@ -38,32 +27,6 @@ function PillStock() {
     return flag === 0 ? false : true;
   }
 
-  // useEffect(() => {
-  //   let arr = [];
-  //   let pillStockArr: IPillStockChannel[] = pillStocks["pillStocks"];
-  //   for (let i = 1; i <= 7; i++) {
-  //     const data = pillStockArr.filter((pill) => pill.channel_id === i);
-  //     if (data.length > 0) {
-  //       arr.push({
-  //         id: data[0].channel_id,
-  //         pill_name: data[0]["pill_name"],
-  //         total: data[0]["total"],
-  //         stock: data[0]["stock"],
-  //         latest_stock: data[0]["latest_stock"],
-  //       });
-  //     } else {
-  //       arr.push({
-  //         id: i,
-  //         pill_name: "-",
-  //         total: "-",
-  //         stock: "-",
-  //         latest_stock: "-",
-  //       });
-  //     }
-  //   }
-  //   setTableData(arr);
-  // }, []);
-
   async function ApiGetPillStock() {
     const accessToken: string = await CheckExpiredToken();
     return await axios.get("/pill-data/getPillStock", { headers: { Authorization: `Bearer ${accessToken}` } }).then((response) => {
@@ -71,14 +34,14 @@ function PillStock() {
       let arr = [];
       let pillStockArr: IPillStockChannel[] = response.data["pillStock"];
       for (let i = 1; i <= 7; i++) {
-        const data = pillStockArr.filter((pill) => pill.channel_id === i.toString());
+        const data = pillStockArr.filter((pill) => pill.channel_id === i.toString() && dateFormat(pill.created_at));
         if (data.length > 0) {
           arr.push({
             id: data[0].channel_id,
             pill_name: data[0]["pill_name"],
             total: data[0]["total"],
             stock: data[0]["stock"],
-            created_at: data[0]["created_at"],
+            created_at: dateFormat(pillStockArr[0].created_at),
           });
         } else {
           arr.push({

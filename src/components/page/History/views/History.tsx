@@ -2,7 +2,7 @@ import { Select, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../common/sidebar/Sidebar";
 import axios from "../../../../config/axiosInstance";
-import { Container_Selete, Selete_Filter, Text_Topic, Container_Table, Table_History } from "./History.style";
+import { Container_Selete, Selete_Filter, Text_Topic, Container_Table, Table_History } from "../styles/History.style";
 import Column from "antd/lib/table/Column";
 import history from "../mock/history.json";
 

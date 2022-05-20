@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { IAuth } from "./interface/User.interface";
 import axios from "../../../../config/axiosInstance";
 import jwt from "jwt-decode";
+import { CheckExpiredToken } from "common/checkExpiredToken";
 
 const AuthContext = React.createContext<any>(null);
 interface IAuthProps {
@@ -44,7 +45,8 @@ const AuthProvider = ({ children }: IAuthProps) => {
       });
   }
 
-  const logout = () => {
+  async function logout() {
+    await CheckExpiredToken();
     return axios
       .post("/auth/logout", {}, { headers: { Authorization: `Bearer ${accessToken}` } })
       .then((response) => {
@@ -57,7 +59,7 @@ const AuthProvider = ({ children }: IAuthProps) => {
       .catch((err) => {
         console.error("ERROR CANNOT LOGIN", err);
       });
-  };
+  }
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");

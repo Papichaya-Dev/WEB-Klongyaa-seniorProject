@@ -33,8 +33,9 @@ export const Input_Pill_Name = styled(Input)`
   width: 250px;
   font-size: 22px;
 
-  & .ant-input[disabled] {
+  .ant-input[disabled] {
     font-size: 24px;
+    background-color: #c21616 !important;
   }
 `;
 
@@ -166,15 +167,14 @@ export const Prohibition_Box = styled.div`
   color: #ff0000;
 `;
 
-export const Back_Button = styled(Button)`
+export const Back_Button = styled.div`
   background-image: url(${back_icon});
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  max-width: 30px;
-  height: 30px;
-  display: block;
-  margin-left: auto;
+  margin-left: 280px;
+  transform: translateY(30px);
+  cursor: pointer;
 `;

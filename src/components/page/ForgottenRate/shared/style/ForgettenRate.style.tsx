@@ -23,10 +23,11 @@ export const Calendar_Icon = styled.div`
   margin-left: auto;
 `;
 
-export const Row_Container_Date = styled(Row)`
+export const Row_Container_Date = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 310px;
 `;
 
 export const Col_Date = styled(Col)`

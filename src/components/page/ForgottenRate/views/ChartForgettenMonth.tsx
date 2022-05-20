@@ -3,26 +3,26 @@ import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Container } from "../shared/style/ForgettenRate.style";
 import forgettenRateMonth from "../mock/forgettenRateMonth.json";
+import { CheckExpiredToken } from "common/checkExpiredToken";
 
 function ChartForgettenMonth() {
   const LABEL_WEEK = ["สัปดาห์ที่ 1", "สัปดาห์ที่ 2", "สัปดาห์ที่ 3", "สัปดาห์ที่ 4"];
   const [dataMonth, setDataMonth] = useState<any | undefined>([]);
 
-  // async function ApiGetForgettenRateWeek() {
-  //   return await axios
-  //     .get("/forgottenRate?filter=month")
-  //     .then((response) => {
-  //       setDataMonth(response.data["rates"]);
-  //       return response.data;
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }
+  async function ApiGetForgettenRateMonth() {
+    const accessToken: string = await CheckExpiredToken();
+    return await axios
+      .get("/pill-data/forgottenRate/month", { headers: { Authorization: `Bearer ${accessToken}` } })
+      .then((response) => {
+        setDataMonth(response.data["rates"]);
+        return response.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
   useEffect(() => {
-    // ApiGetForgettenRateWeek();
-    setDataMonth(forgettenRateMonth["rates"]);
-    console.log("Forgetten Rate Month :", dataMonth);
+    ApiGetForgettenRateMonth();
   }, []);
   return (
     <Container>

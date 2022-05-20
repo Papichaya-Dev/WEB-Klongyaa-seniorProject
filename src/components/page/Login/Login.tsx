@@ -10,7 +10,6 @@ function Login() {
   const [email_or_username, set_email_or_username] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { login, accessToken } = useAuthContext();
-
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -37,7 +36,7 @@ function Login() {
           cancelButtonProps={{ style: { display: "none" } }}
           okButtonProps={{ style: { display: "none" } }}
         >
-          <Input_Email placeholder="E-mail" size="large" prefix={<MailFilled />} onChange={(event) => set_email_or_username(event.target.value)} />
+          <Input_Email placeholder="E-mail" size="large" prefix={<MailFilled />} onChange={(event) => set_email_or_username(event.target.value)} required={true} />
           <Input_Password placeholder="Password" size="large" prefix={<LockFilled />} onChange={(event) => setPassword(event.target.value)} />
           <Forget_Password>ลืมรหัสผ่าน ?</Forget_Password>
           <Button_Login_Form onClick={() => login({ email_or_username, password })}>เข้าสู่ระบบ</Button_Login_Form>

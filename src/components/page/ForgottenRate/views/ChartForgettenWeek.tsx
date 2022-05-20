@@ -2,27 +2,28 @@ import axios from "../../../../config/axiosInstance";
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Container } from "../shared/style/ForgettenRate.style";
-import forgettenRateWeek from "../mock/forgettenRateWeek.json";
+import { CheckExpiredToken } from "common/checkExpiredToken";
 
 function ChartForgettenWeek() {
   const LABEL_WEEK = ["จันทร์", "อีงคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์", "อาทิตย์"];
   const [dataWeek, setDataWeek] = useState<any | undefined>([]);
 
-  // async function ApiGetForgettenRateWeek() {
-  //   return await axios
-  //     .get("/forgottenRate?filter=week")
-  //     .then((response) => {
-  //       setDataWeek(response.data["rates"]);
-  //       return response.data;
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }
+  async function ApiGetForgettenRateWeek() {
+    const accessToken: string = await CheckExpiredToken();
+    return await axios
+      .get("/pill-data/forgottenRate/week", { headers: { Authorization: `Bearer ${accessToken}` } })
+      .then((response) => {
+        setDataWeek(response.data["rates"]);
+
+        return response.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   useEffect(() => {
-    // ApiGetForgettenRateWeek();
-    setDataWeek(forgettenRateWeek["rates"]);
-    console.log("Forgetten Rate Week :", dataWeek);
+    ApiGetForgettenRateWeek();
   }, []);
   return (
     <Container>

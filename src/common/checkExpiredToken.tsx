@@ -12,12 +12,9 @@ interface IJwtToken {
 export async function CheckExpiredToken(): Promise<string> {
   let accessToken: string | null = localStorage.getItem("accessToken");
   if (accessToken) {
-    const decoded = jwtDecode(accessToken);
-    console.log("[DECODED]", decoded);
     try {
       jwtDecode(accessToken);
       const tokenDecode: IJwtToken = jwtDecode(accessToken);
-      console.log(tokenDecode.exp);
       // const { exp } = jwtDecode(refreshToken);
       if (Date.now() >= tokenDecode.exp * 1000) {
         await refreshTokenFunc();
