@@ -31,6 +31,7 @@ export const Container_Table = styled.div`
   margin-left: 450px;
   margin-top: 20px;
   width: 750px;
+  margin-bottom: 20px;
 `;
 
 export const Table_History = styled(Table)`
@@ -38,6 +39,10 @@ export const Table_History = styled(Table)`
     width: 100%;
     font-size: 18px;
     background-color: #f5f5f5;
+  }
+
+  & .ant-table-container {
+    margin-bottom: 50px !important ;
   }
 
   & .ant-table-thead > tr > th {

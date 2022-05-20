@@ -21,7 +21,6 @@ import {
   Text_Topic_Feature,
   Text_Topic_Properties,
 } from "../styles/DetailPillScreen.style";
-import mockDetailPill from "../mock/detailPillScreen.json";
 import { Tooltip } from "antd";
 import { QuestionOutlined } from "@ant-design/icons";
 import mockPropotiesPill from "../mock/propotiesPill.json";

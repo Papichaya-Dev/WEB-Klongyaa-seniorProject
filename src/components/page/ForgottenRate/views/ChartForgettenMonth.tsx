@@ -2,7 +2,6 @@ import axios from "../../../../config/axiosInstance";
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Container } from "../shared/style/ForgettenRate.style";
-import forgettenRateMonth from "../mock/forgettenRateMonth.json";
 import { CheckExpiredToken } from "common/checkExpiredToken";
 
 function ChartForgettenMonth() {

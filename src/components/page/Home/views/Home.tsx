@@ -5,7 +5,7 @@ import { Col, Space, Spin, Tooltip } from "antd";
 import { Box_Pill_Channel, Button_Tooltip, Main_Container, Pill_Channel_No, Pill_Name, Row_Container } from "../styles/Home.style";
 import { Text_Topic } from "components/page/History/styles/History.style";
 import { QuestionOutlined } from "@ant-design/icons";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CheckExpiredToken } from "common/checkExpiredToken";
 
 //===================== CREATE INTERFACE =====================//
