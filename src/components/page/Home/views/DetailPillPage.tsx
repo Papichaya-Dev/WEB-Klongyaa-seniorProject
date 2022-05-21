@@ -82,8 +82,6 @@ function DetailPillScreen() {
   // console.log("INPUT MAIN PILL NAME", inputMainPillName);
 
   async function OnSubmitMainPillName() {
-    console.log("SUBMIT");
-    console.log(selectRealPllName);
     const isSuccessSubmit = await ApiAddRealPillToPillChannelData();
     if (isSuccessSubmit) {
       setIsShowNotification(true);
@@ -149,7 +147,6 @@ function DetailPillScreen() {
   }
 
   async function ApiAddRealPillToPillChannelData(): Promise<boolean> {
-    const accessToken: string = await CheckExpiredToken();
     if (detailPill && selectRealPllName) {
       const accessToken: string = await CheckExpiredToken();
 
@@ -164,11 +161,17 @@ function DetailPillScreen() {
             headers: { Authorization: `Bearer ${accessToken}` },
           }
         )
-        .then((res) => {
-          console.log('teststttt')
-          console.log(res.data);
+        .then((response) => {
           setSelectRealPillName(undefined)
-          setDetailPill(res.data)
+          setDetailPill(response.data)
+          setOptions([])
+          if(response.data?.real_pill_data !== null && response.data?.real_pill_data?.danger_pills.length > 0) {
+            let infoText:string = ''
+            response.data?.real_pill_data?.danger_pills?.map((item:any) => {
+              infoText = infoText + item.pill_name + ': ' + item.reason + '\n'
+            })
+            setDangerPillInfo(infoText)
+          }
           return true;
         })
         .catch((error) => {
@@ -181,9 +184,37 @@ function DetailPillScreen() {
     }
   }
 
+  async function ApiDeleteeRealNameInPillChannelData() {
+    const accessToken: string = await CheckExpiredToken();
+    axios
+        .post(
+          "/pill-data/deleteRealNameInPillChannelData",
+          {
+            cid: detailPill?.cid,
+            rid: detailPill?.real_pill_data?.rid,
+          },
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }
+        )
+        .then((res) => {
+          setSelectRealPillName(undefined)
+          let buff = detailPill
+          if(buff) buff.real_pill_data = null
+          setDetailPill(buff)
+          setInputRealPillName('')
+          setOptions([])
+          setDangerPillInfo('')
+          return true;
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+  }
+
   useEffect(() => {
     ApiGetPillDetail();
-    console.log("DETAIL PILL", detailPill);
+    // console.log("DETAIL PILL", detailPill);
   }, []);
   return (
     <>
@@ -264,6 +295,7 @@ function DetailPillScreen() {
                 *ชื่อยาสามัญ
                 {/* <Input_Main_Pill_Name type="text" onChange={onChange} value={inputMainPillName} /> */}
                 <AutoComplete
+                  disabled={!detailPill?.real_pill_data? false : true}
                   options={options}
                   style={{ width: 200 }}
                   onSelect={onSelect}
@@ -274,7 +306,14 @@ function DetailPillScreen() {
                 />
               </Span_Main_Pill_Name>
             </Box_Main_Pill_Name>
-            {selectRealPllName ? (
+            {detailPill?.real_pill_data ? (
+              <Button_Save
+              onClick={ApiDeleteeRealNameInPillChannelData}
+              style={{ backgroundColor: "#ff9e9e", color: "white" }}
+            >
+              ลบ
+            </Button_Save>
+            ) : selectRealPllName ? (
               <Button_Save
                 onClick={OnSubmitMainPillName}
                 style={{ backgroundColor: "#6ADB89", color: "white" }}
