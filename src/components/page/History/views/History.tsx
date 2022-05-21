@@ -2,10 +2,12 @@ import { Select } from "antd";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../common/sidebar/Sidebar";
 import axios from "../../../../config/axiosInstance";
-import { Container_Selete, Selete_Filter, Text_Topic, Container_Table, Table_History } from "../styles/History.style";
+import { ContainerSelect, ContainerTable, SeleteFilter, TableHistory, TextTopic } from "../styles/History.style";
 import Column from "antd/lib/table/Column";
 import { CheckExpiredToken } from "common/checkExpiredToken";
 import { dateFormat, timeFormat } from "utils/DateFormat";
+import { Selete_Filter } from "components/page/ForgottenRate/shared/style/ForgettenRate.style";
+import { Container_Table } from "components/page/PillStock/styles/PillStock.style";
 
 const { Option } = Select;
 
@@ -19,9 +21,9 @@ interface IHistory {
 
 function History() {
   const [selectTime, setSelectTime] = useState("สัปดาห์นี้");
-  const [tableHistoryWeek, setTableHistoryWeek] = useState<IHistory | undefined | any>();
-  const [tableHistoryMonth, setTableHistoryMonth] = useState<IHistory | undefined | any>();
-  const [tableHistoryLastMonth, setTableHistoryLastMonth] = useState<IHistory | undefined | any>();
+  const [tableHistoryWeek, setTableHistoryWeek] = useState<IHistory[]>([]);
+  const [tableHistoryMonth, setTableHistoryMonth] = useState<IHistory[]>([]);
+  const [tableHistoryLastMonth, setTableHistoryLastMonth] = useState<IHistory[]>([]);
 
   function handleChange(value: any) {
     console.log(`selected ${value}`);
@@ -104,41 +106,41 @@ function History() {
   return (
     <>
       <Navbar />
-      <Text_Topic>ประวัติการใช้งานกล่องยา</Text_Topic>
-      <Container_Selete>
-        <Selete_Filter defaultValue={selectTime} onChange={handleChange}>
+      <TextTopic>ประวัติการใช้งานกล่องยา</TextTopic>
+      <ContainerSelect>
+        <SeleteFilter defaultValue={selectTime} onChange={handleChange}>
           <Option value="สัปดาห์นี้">สัปดาห์นี้</Option>
           <Option value="เดือนนี้">เดือนนี้</Option>
           <Option value="เดือนที่เเล้ว">เดือนที่แล้ว</Option>
-        </Selete_Filter>
-      </Container_Selete>
+        </SeleteFilter>
+      </ContainerSelect>
       {selectTime === "สัปดาห์นี้" ? (
-        <Container_Table>
-          <Table_History dataSource={tableHistoryWeek} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
+        <ContainerTable>
+          <TableHistory dataSource={tableHistoryWeek} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
             <Column title="เวลา" dataIndex="time" key="date_time" />
             <Column title="วันที่" dataIndex="date" key="date" />
             <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
             <Column title="รายการ" dataIndex="task" key="task" />
-          </Table_History>
-        </Container_Table>
+          </TableHistory>
+        </ContainerTable>
       ) : selectTime === "เดือนนี้" ? (
-        <Container_Table>
-          <Table_History dataSource={tableHistoryMonth} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
+        <ContainerTable>
+          <TableHistory dataSource={tableHistoryMonth} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
             <Column title="เวลา" dataIndex="time" key="date_time" />
             <Column title="วันที่" dataIndex="date" key="date" />
             <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
             <Column title="รายการ" dataIndex="task" key="task" />
-          </Table_History>
-        </Container_Table>
+          </TableHistory>
+        </ContainerTable>
       ) : (
-        <Container_Table>
-          <Table_History dataSource={tableHistoryLastMonth} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
+        <ContainerTable>
+          <TableHistory dataSource={tableHistoryLastMonth} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
             <Column title="เวลา" dataIndex="time" key="date_time" />
             <Column title="วันที่" dataIndex="date" key="date" />
             <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
             <Column title="รายการ" dataIndex="task" key="task" />
-          </Table_History>
-        </Container_Table>
+          </TableHistory>
+        </ContainerTable>
       )}
     </>
   );

@@ -40,7 +40,6 @@ interface IDetailPill {
 function DetailPillScreen() {
   const [detailPill, setDetailPill] = useState<IDetailPill | any>();
   const [inputMainPillName, setInputMainPillName] = useState("");
-  const [dropdownSearch, setDropdownSearch] = useState([]);
 
   const [isShowNotification, setIsShowNotification] = useState(false);
   const paramObjectId = useParams<{ id: string }>();

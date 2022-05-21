@@ -1,7 +1,7 @@
 import { Select, Table } from "antd";
 import styled from "styled-components";
 
-export const Text_Topic = styled.div`
+export const TextTopic = styled.div`
   font-weight: bolder;
   font-size: 36px;
   text-align: center;
@@ -10,7 +10,7 @@ export const Text_Topic = styled.div`
   padding-left: 100px;
 `;
 
-export const Selete_Filter = styled(Select)`
+export const SeleteFilter = styled(Select)`
   & .ant-select-selector {
     border-radius: 10px !important;
     background-color: #f4f4f4 !important;
@@ -20,21 +20,21 @@ export const Selete_Filter = styled(Select)`
   }
 `;
 
-export const Container_Selete = styled.div`
+export const ContainerSelect = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 48%;
 `;
 
-export const Container_Table = styled.div`
+export const ContainerTable = styled.div`
   margin-left: 450px;
   margin-top: 20px;
   width: 750px;
   margin-bottom: 20px;
 `;
 
-export const Table_History = styled(Table)`
+export const TableHistory = styled(Table)`
   & .ant-table-container table {
     width: 100%;
     font-size: 18px;
