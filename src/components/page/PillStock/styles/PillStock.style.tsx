@@ -2,7 +2,7 @@ import { Table } from "antd";
 import Column from "antd/lib/table/Column";
 import styled from "styled-components";
 
-export const Text_Topic = styled.div`
+export const TextTopic = styled.div`
   font-weight: bolder;
   font-size: 36px;
   text-align: center;
@@ -11,11 +11,11 @@ export const Text_Topic = styled.div`
   padding-left: 100px;
 `;
 
-export const Container_Table = styled.div`
+export const ContainerTable = styled.div`
   margin-left: 350px;
 `;
 
-export const Table_PillStock = styled(Table)`
+export const TablePillStock = styled(Table)`
   & .ant-table-container table {
     text-align: center;
     width: 85%;
@@ -28,7 +28,7 @@ export const Table_PillStock = styled(Table)`
   }
 `;
 
-export const Column_PillName = styled(Column)`
+export const ColumnPillName = styled(Column)`
   background-color: red;
   font-size: 50px;
 `;

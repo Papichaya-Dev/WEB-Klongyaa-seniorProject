@@ -1,5 +1,5 @@
 import { SidebarData } from "./SidebarData";
-import { Logout_Button, Logout_Image, Pill_Profile, Sidebar, Text_Center } from "./Sidebar.style";
+import { LogoutButton, LogoutImage, PillProfile, Sidebar, TextCenter } from "./Sidebar.style";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import { useAuthContext } from "components/page/Login/Auth/AuthContext";
@@ -32,12 +32,12 @@ function Navbar() {
     <>
       <Sidebar className={true ? "nav-menu active" : "nav-menu"}>
         <div className="SidebarList">
-          <Pill_Profile />
+          <PillProfile />
 
-          <Text_Center>
+          <TextCenter>
             <div style={{ fontSize: "18px" }}>account</div>
             <div style={{ fontSize: "16px" }}>{email}</div>
-          </Text_Center>
+          </TextCenter>
           {SidebarData.map((item, index) => {
             return (
               <li key={index} className={item.cName} id={window.location.pathname === item.path ? "active" : ""}>
@@ -51,8 +51,8 @@ function Navbar() {
             );
           })}
           <span>
-            <Logout_Button onClick={logout}>Logout</Logout_Button>
-            <Logout_Image />
+            <LogoutButton onClick={logout}>Logout</LogoutButton>
+            <LogoutImage />
           </span>
         </div>
       </Sidebar>

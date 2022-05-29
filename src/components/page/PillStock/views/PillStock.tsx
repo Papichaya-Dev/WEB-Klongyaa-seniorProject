@@ -1,31 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../common/sidebar/Sidebar";
-import { Column_PillName, Container_Table, Table_PillStock, Text_Topic } from "../styles/PillStock.style";
+import { ColumnPillName, ContainerTable, TablePillStock, TextTopic } from "../styles/PillStock.style";
 import axios from "../../../../config/axiosInstance";
 import Column from "antd/lib/table/Column";
 import { CheckExpiredToken } from "common/checkExpiredToken";
 import { dateFormat } from "utils/DateFormat";
-
-interface IPillStockChannel {
-  channel_id: string;
-  pill_name: string;
-  total: number;
-  stock: number;
-  created_at: string;
-  cid?: string;
-  take_time?: string[];
-}
+import { IPillStockChannel } from "./pillStock.type";
+import { Space, Spin } from "antd";
 
 function PillStock() {
-  const [tableData, setTableData] = useState<any | undefined>();
-
-  function isInArray(index: number, arr: IPillStockChannel[]) {
-    let flag = 0;
-    arr?.map((item) => {
-      if (index.toString() === item.channel_id) flag = 1;
-    });
-    return flag === 0 ? false : true;
-  }
+  const [tableData, setTableData] = useState<undefined | any>();
 
   async function ApiGetPillStock() {
     const accessToken: string = await CheckExpiredToken();
@@ -56,7 +40,6 @@ function PillStock() {
       setTableData(arr);
     });
   }
-  console.log("TABLE PILL :", tableData);
 
   useEffect(() => {
     ApiGetPillStock();
@@ -64,16 +47,23 @@ function PillStock() {
   return (
     <>
       <Navbar />
-      <Text_Topic>จำนวนยาคงเหลือ</Text_Topic>
-      <Container_Table>
-        <Table_PillStock dataSource={tableData} pagination={false} rowClassName={() => "rowClassName1"}>
-          <Column_PillName title="ช่องที่" dataIndex="id" key="id" />
-          <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
-          <Column title="จำนวนยาทั้งหมด" dataIndex="total" key="total" />
-          <Column title="คงเหลือ" dataIndex="stock" key="stock" />
-          <Column title="วันที่บรรจุ" dataIndex="created_at" key="created_at" />
-        </Table_PillStock>
-      </Container_Table>
+      <TextTopic>จำนวนยาคงเหลือ</TextTopic>
+
+      {tableData?.length === undefined ? (
+        <Space size="middle" style={{ marginLeft: "800px" }}>
+          <Spin size="large" />
+        </Space>
+      ) : (
+        <ContainerTable>
+          <TablePillStock dataSource={tableData} pagination={false} rowClassName={() => "rowClassName1"}>
+            <ColumnPillName title="ช่องที่" dataIndex="id" key="id" />
+            <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
+            <Column title="จำนวนยาทั้งหมด" dataIndex="stock" key="stock" />
+            <Column title="คงเหลือ" dataIndex="total" key="total" />
+            <Column title="วันที่บรรจุ" dataIndex="created_at" key="created_at" />
+          </TablePillStock>
+        </ContainerTable>
+      )}
     </>
   );
 }

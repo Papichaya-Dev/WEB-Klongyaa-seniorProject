@@ -1,4 +1,4 @@
-import { Select } from "antd";
+import { Select, Space, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../common/sidebar/Sidebar";
 import axios from "../../../../config/axiosInstance";
@@ -6,8 +6,8 @@ import { ContainerSelect, ContainerTable, SeleteFilter, TableHistory, TextTopic 
 import Column from "antd/lib/table/Column";
 import { CheckExpiredToken } from "common/checkExpiredToken";
 import { dateFormat, timeFormat } from "utils/DateFormat";
-import { Selete_Filter } from "components/page/ForgottenRate/shared/style/ForgettenRate.style";
-import { Container_Table } from "components/page/PillStock/styles/PillStock.style";
+import { transalateToThai } from "utils/transalator";
+import "../styles/table.css";
 
 const { Option } = Select;
 
@@ -37,6 +37,8 @@ function History() {
       let dataFormat = data?.map((item: any) => {
         item.date = dateFormat(item.date_time);
         item.time = timeFormat(item.date_time);
+        item.task = transalateToThai(item.task);
+
         return item;
       });
 
@@ -45,7 +47,6 @@ function History() {
       });
 
       setTableHistoryWeek(dateSort);
-      console.log("[History week]", dataFormat);
 
       return response.data;
     });
@@ -60,6 +61,8 @@ function History() {
         let dataFormat = data?.map((item: any) => {
           item.date = dateFormat(item.date_time);
           item.time = timeFormat(item.date_time);
+          item.task = transalateToThai(item.task);
+
           return item;
         });
         let dateSort = dataFormat?.sort(function (a: any, b: any) {
@@ -83,6 +86,7 @@ function History() {
         let dataFormat = data?.map((item: any) => {
           item.date = dateFormat(item.date_time);
           item.time = timeFormat(item.date_time);
+          item.task = transalateToThai(item.task);
           return item;
         });
         let dateSort = dataFormat?.sort(function (a: any, b: any) {
@@ -114,33 +118,74 @@ function History() {
           <Option value="เดือนที่เเล้ว">เดือนที่แล้ว</Option>
         </SeleteFilter>
       </ContainerSelect>
-      {selectTime === "สัปดาห์นี้" ? (
-        <ContainerTable>
-          <TableHistory dataSource={tableHistoryWeek} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
-            <Column title="เวลา" dataIndex="time" key="date_time" />
-            <Column title="วันที่" dataIndex="date" key="date" />
-            <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
-            <Column title="รายการ" dataIndex="task" key="task" />
-          </TableHistory>
-        </ContainerTable>
-      ) : selectTime === "เดือนนี้" ? (
-        <ContainerTable>
-          <TableHistory dataSource={tableHistoryMonth} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
-            <Column title="เวลา" dataIndex="time" key="date_time" />
-            <Column title="วันที่" dataIndex="date" key="date" />
-            <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
-            <Column title="รายการ" dataIndex="task" key="task" />
-          </TableHistory>
-        </ContainerTable>
+      {tableHistoryWeek.length && tableHistoryMonth.length === 0 ? (
+        <Space size="middle" style={{ marginLeft: "800px" }}>
+          <Spin size="large" />
+        </Space>
       ) : (
-        <ContainerTable>
-          <TableHistory dataSource={tableHistoryLastMonth} pagination={false} rowClassName={() => "rowClassName1"} key={1}>
-            <Column title="เวลา" dataIndex="time" key="date_time" />
-            <Column title="วันที่" dataIndex="date" key="date" />
-            <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
-            <Column title="รายการ" dataIndex="task" key="task" />
-          </TableHistory>
-        </ContainerTable>
+        <>
+          {selectTime === "สัปดาห์นี้" ? (
+            <ContainerTable>
+              <TableHistory
+                dataSource={tableHistoryWeek}
+                pagination={false}
+                rowClassName={(obj, index) => {
+                  let log: IHistory = Object.assign(obj);
+                  if (log.task === "ผู้ใช้ลืมทานยา") {
+                    return "red";
+                  }
+                  return "rowClassName1";
+                }}
+                key={1}
+              >
+                <Column title="เวลา" dataIndex="time" key="date_time" />
+                <Column title="วันที่" dataIndex="date" key="date" />
+                <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
+                <Column title="รายการ" dataIndex="task" key="task" />
+              </TableHistory>
+            </ContainerTable>
+          ) : selectTime === "เดือนนี้" ? (
+            <ContainerTable>
+              <TableHistory
+                dataSource={tableHistoryMonth}
+                pagination={false}
+                rowClassName={(obj, index) => {
+                  let log: IHistory = Object.assign(obj);
+                  if (log.task === "ผู้ใช้ลืมทานยา") {
+                    return "red";
+                  }
+                  return "rowClassName1";
+                }}
+                key={1}
+              >
+                <Column title="เวลา" dataIndex="time" key="date_time" />
+                <Column title="วันที่" dataIndex="date" key="date" />
+                <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
+                <Column title="รายการ" dataIndex="task" key="task" />
+              </TableHistory>
+            </ContainerTable>
+          ) : (
+            <ContainerTable>
+              <TableHistory
+                dataSource={tableHistoryLastMonth}
+                pagination={false}
+                rowClassName={(obj, index) => {
+                  let log: IHistory = Object.assign(obj);
+                  if (log.task === "ผู้ใช้ลืมทานยา") {
+                    return "red";
+                  }
+                  return "rowClassName1";
+                }}
+                key={1}
+              >
+                <Column title="เวลา" dataIndex="time" key="date_time" />
+                <Column title="วันที่" dataIndex="date" key="date" />
+                <Column title="ชื่อยา" dataIndex="pill_name" key="pill_name" />
+                <Column title="รายการ" dataIndex="task" key="task" />
+              </TableHistory>
+            </ContainerTable>
+          )}
+        </>
       )}
     </>
   );

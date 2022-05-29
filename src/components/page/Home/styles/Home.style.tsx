@@ -1,7 +1,7 @@
 import { Button, Col, Row } from "antd";
 import styled from "styled-components";
 
-export const Row_Container = styled(Row)`
+export const RowContainer = styled(Row)`
   background-color: #dbf6f3;
   width: 80%;
   height: 20vh;
@@ -14,11 +14,11 @@ export const Row_Container = styled(Row)`
   }
 `;
 
-export const Main_Container = styled.div`
+export const MainContainer = styled.div`
   margin-left: 400px;
 `;
 
-export const Button_Tooltip = styled(Button)`
+export const ButtonTooltip = styled(Button)`
   position: absolute;
   right: 150px;
   bottom: 50px;
@@ -26,12 +26,12 @@ export const Button_Tooltip = styled(Button)`
   height: 45px;
 `;
 
-export const Box_Pill_Channel = styled(Col)`
+export const BoxPillChannel = styled(Col)`
   background-color: #fcff7d;
   cursor: pointer;
 `;
 
-export const Pill_Channel_No = styled.div`
+export const PillChannelNo = styled.div`
   background-color: #eb5f91;
   color: white;
   border-radius: 35px;
@@ -45,7 +45,7 @@ export const Pill_Channel_No = styled.div`
   margin-top: 10px;
 `;
 
-export const Pill_Name = styled.div`
+export const PillName = styled.div`
   margin-top: 10px;
 
   text-align: center;

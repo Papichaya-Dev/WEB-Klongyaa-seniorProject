@@ -5,16 +5,29 @@ import { Container } from "../shared/style/ForgettenRate.style";
 import { CheckExpiredToken } from "common/checkExpiredToken";
 
 function ChartForgettenWeek() {
-  const LABEL_WEEK = ["จันทร์", "อีงคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์", "อาทิตย์"];
-  const [dataWeek, setDataWeek] = useState<any | undefined>([]);
+  const LABEL_WEEK = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+  const [dataWeek, setDataWeek] = useState<[]>([]);
+  const [rateMax, setRateMax] = useState<number>();
+  const [labelWeek, setLabelWeek] = useState<string[]>([]);
 
   async function ApiGetForgettenRateWeek() {
     const accessToken: string = await CheckExpiredToken();
     return await axios
       .get("/pill-data/forgottenRate/week", { headers: { Authorization: `Bearer ${accessToken}` } })
       .then((response) => {
-        setDataWeek(response.data["rates"]);
+        let startDateStr: string = response.data["start_date"];
+        let dayNum = new Date(startDateStr).getDay();
+        let buffLabelWeek: string[] = [];
+        for (let i = 0; i < 7; i++) {
+          if (dayNum > 6) dayNum = 0;
+          buffLabelWeek.push(LABEL_WEEK[dayNum]);
+          dayNum++;
+        }
+        setLabelWeek(buffLabelWeek);
 
+        setDataWeek(response.data["rates"]);
+        let rateMax = Math.max(response.data["rates"] + 2);
+        setRateMax(rateMax);
         return response.data;
       })
       .catch((err) => {
@@ -32,7 +45,7 @@ function ChartForgettenWeek() {
         width={1000}
         options={{
           chart: {
-            type: "line",
+            type: "area",
             dropShadow: {
               enabled: true,
               blur: 1,
@@ -40,7 +53,7 @@ function ChartForgettenWeek() {
               top: 1,
             },
           },
-          colors: ["#7b1b77"],
+          colors: ["#d11111"],
           stroke: {
             width: 3,
             curve: "smooth",
@@ -58,7 +71,7 @@ function ChartForgettenWeek() {
             enabled: true,
           },
           xaxis: {
-            categories: LABEL_WEEK,
+            categories: labelWeek,
             title: {
               text: "ระยะเวลา",
             },
@@ -68,7 +81,7 @@ function ChartForgettenWeek() {
               text: "จำนวนที่ลืมทานยา (ครั้ง)",
             },
             min: 0,
-            max: 10,
+            max: rateMax,
           },
           grid: {
             borderColor: "#e7e7e7",
@@ -84,7 +97,7 @@ function ChartForgettenWeek() {
             data: dataWeek,
           },
         ]}
-        type="line"
+        type="area"
       />
     </Container>
   );

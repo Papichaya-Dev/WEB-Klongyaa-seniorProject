@@ -1,7 +1,7 @@
 import { Col } from "antd";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../common/sidebar/Sidebar";
-import { Calendar_Icon, Col_Date, Row_Container_Date, Selete_Filter, Text_Topic } from "../shared/style/ForgettenRate.style";
+import { CalendarIcon, ColDate, RowContainerDate, SeleteFilter, TextTopic } from "../shared/style/ForgettenRate.style";
 import ChartForgettenMonth from "./ChartForgettenMonth";
 import ChartForgettenWeek from "./ChartForgettenWeek";
 import { Select } from "antd";
@@ -13,8 +13,8 @@ const { Option } = Select;
 
 function ForgottenRate() {
   const [selectTime, setSelectTime] = useState("รายสัปดาห์");
-  const [startDate, setStartDate] = useState<any | undefined>("");
-  const [endDate, setEndDate] = useState<any | undefined>("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
 
   function handleChange(value: any) {
     setSelectTime(`${value}`);
@@ -54,20 +54,20 @@ function ForgottenRate() {
   return (
     <>
       <Navbar />
-      <Text_Topic>อัตราการลืมทานยา</Text_Topic>
-      <Row_Container_Date>
+      <TextTopic>อัตราการลืมทานยา</TextTopic>
+      <RowContainerDate>
         <Col span={8}>
-          <Calendar_Icon />
+          <CalendarIcon />
         </Col>
 
-        {selectTime === "รายสัปดาห์" ? <Col_Date span={8}>{startDate + " - " + endDate}</Col_Date> : <Col_Date span={8}>{startDate + " - " + endDate}</Col_Date>}
+        {selectTime === "รายสัปดาห์" ? <ColDate span={8}>{startDate + " - " + endDate}</ColDate> : <ColDate span={8}>{startDate + " - " + endDate}</ColDate>}
         <Col span={8}>
-          <Selete_Filter defaultValue={selectTime} onChange={handleChange}>
+          <SeleteFilter defaultValue={selectTime} onChange={handleChange}>
             <Option value="รายสัปดาห์">รายสัปดาห์</Option>
             <Option value="รายเดือน">รายเดือน</Option>
-          </Selete_Filter>
+          </SeleteFilter>
         </Col>
-      </Row_Container_Date>
+      </RowContainerDate>
       {selectTime === "รายสัปดาห์" ? <ChartForgettenWeek /> : <ChartForgettenMonth />}
     </>
   );

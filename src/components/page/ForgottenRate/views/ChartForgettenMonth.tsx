@@ -6,13 +6,16 @@ import { CheckExpiredToken } from "common/checkExpiredToken";
 
 function ChartForgettenMonth() {
   const LABEL_WEEK = ["สัปดาห์ที่ 1", "สัปดาห์ที่ 2", "สัปดาห์ที่ 3", "สัปดาห์ที่ 4"];
-  const [dataMonth, setDataMonth] = useState<any | undefined>([]);
+  const [dataMonth, setDataMonth] = useState<[]>([]);
+  const [rateMax, setRateMax] = useState<number>();
 
   async function ApiGetForgettenRateMonth() {
     const accessToken: string = await CheckExpiredToken();
     return await axios
       .get("/pill-data/forgottenRate/month", { headers: { Authorization: `Bearer ${accessToken}` } })
       .then((response) => {
+        let rateMax = Math.max(response.data["rates"] + 2);
+        setRateMax(rateMax);
         setDataMonth(response.data["rates"]);
         return response.data;
       })
@@ -38,7 +41,7 @@ function ChartForgettenMonth() {
               top: 1,
             },
           },
-          colors: ["#26df70"],
+          colors: ["#d11111"],
           stroke: {
             width: 3,
             curve: "smooth",
@@ -66,7 +69,7 @@ function ChartForgettenMonth() {
               text: "จำนวนที่ลืมทานยา (ครั้ง)",
             },
             min: 0,
-            max: 20,
+            max: rateMax,
           },
           grid: {
             borderColor: "#e7e7e7",

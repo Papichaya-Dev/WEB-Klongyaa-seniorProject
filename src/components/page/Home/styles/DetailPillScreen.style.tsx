@@ -1,8 +1,8 @@
-import { Alert, Button, Input } from "antd";
+import { Alert, AutoComplete, Button, Input } from "antd";
 import styled from "styled-components";
 import back_icon from "../image/back_button.png";
 
-export const Text_Topic = styled.div`
+export const TextTopic = styled.div`
   font-weight: bolder;
   font-size: 28px;
   background-color: #eb5f91;
@@ -16,18 +16,18 @@ export const Text_Topic = styled.div`
   font-weight: normal;
 `;
 
-export const Text_Pill_Name = styled.div`
+export const TextPillName = styled.div`
   font-size: 22px;
   margin-left: 25%;
   padding-top: 100px;
   margin-bottom: 10px;
 `;
 
-export const Span_Field = styled.span`
+export const SpanField = styled.span`
   margin-left: 20px;
 `;
 
-export const Input_Pill_Name = styled(Input)`
+export const InputPillName = styled(Input)`
   border-radius: 5px;
   background-color: #f9f9f9;
   width: 250px;
@@ -39,14 +39,14 @@ export const Input_Pill_Name = styled(Input)`
   }
 `;
 
-export const Text_Task = styled.div`
+export const TextTask = styled.div`
   font-size: 22px;
   margin-left: 25%;
   padding-top: 10px;
   margin-bottom: 10px;
 `;
 
-export const Container_Main_Pill_Name = styled.div`
+export const ContainerMainPillName = styled.div`
   position: absolute;
   left: 30%;
   width: 628px;
@@ -55,24 +55,28 @@ export const Container_Main_Pill_Name = styled.div`
   border-radius: 20px;
 `;
 
-export const Span_Main_Pill_Name = styled.span`
+export const SpanMainPillName = styled.span`
   margin-left: 20px;
   font-size: 22px;
   padding-left: 10px;
 `;
 
-export const Input_Main_Pill_Name = styled(Input)`
-  border-radius: 5px;
-  width: 250px;
-  font-size: 22px;
+export const InputMainPillName = styled(AutoComplete)`
+  width: 250px !important;
+  font-size: 20px;
   margin-left: 30px;
+  height: 5vh;
 
   & .ant-input[disabled] {
     font-size: 24px;
   }
+  & .ant-select-selector {
+    border-radius: 5px !important;
+    height: 5vh !important;
+  }
 `;
 
-export const Button_Save = styled(Button)`
+export const ButtonSave = styled(Button)`
   border-radius: 35px;
   width: 25%;
   height: 6vh;
@@ -83,11 +87,11 @@ export const Button_Save = styled(Button)`
   top: 64%;
 `;
 
-export const Box_Main_Pill_Name = styled.div`
+export const BoxMainPillName = styled.div`
   margin-top: 20px;
 `;
 
-export const Line_Horizontal = styled.hr`
+export const LineHorizontal = styled.hr`
   background-color: #e9e9e9;
   height: 2px;
   border: none;
@@ -96,7 +100,7 @@ export const Line_Horizontal = styled.hr`
   margin-bottom: 20px;
 `;
 
-export const Text_Check_Input = styled.div`
+export const TextCheckInput = styled.div`
   text-align: center;
   color: red;
   font-weight: 400;
@@ -122,26 +126,32 @@ export const NotificationCreatedPostSuccess = styled(Alert)`
   }
 `;
 
-export const Text_Topic_Feature = styled.div`
+export const TextTopicFeature = styled.div`
   font-size: 22px;
   margin-left: 25%;
   padding-top: 230px;
   margin-bottom: 10px;
 `;
 
-export const Text_Topic_Properties = styled.div`
+export const TextTopicProperties = styled.div`
   font-size: 22px;
   margin-left: 25%;
   margin-bottom: 10px;
 `;
 
-export const Span_Field_Properties = styled.span`
+export const SpanFieldProperties = styled.span`
+  margin-left: 20px;
+  color: #54c472;
+  font-weight: 300;
+`;
+
+export const SpanFieldEffect = styled.span`
   margin-left: 20px;
   color: #ff0000;
   font-weight: 300;
 `;
 
-export const Button_Dont_Eat = styled(Button)`
+export const ButtonDontEat = styled(Button)`
   position: absolute;
   width: 40px;
   height: 40px;
@@ -149,25 +159,25 @@ export const Button_Dont_Eat = styled(Button)`
   margin-left: 10px;
 `;
 
-export const Span_Field_Dont_Eat = styled.span`
+export const SpanFieldDontEat = styled.span`
   margin-left: 50px;
   color: #ff0000;
   font-weight: 300;
 `;
 
-export const Span_Tooltip_Dont_Eat = styled.span`
+export const SpanTooltipDontEat = styled.span`
   margin-left: 10px;
   font-weight: 300;
 `;
 
-export const Prohibition_Box = styled.div`
+export const ProhibitionBox = styled.div`
   padding-left: 20%;
   transform: translateY(-35px);
   font-weight: 300;
   color: #ff0000;
 `;
 
-export const Back_Button = styled.div`
+export const BackButton = styled.div`
   background-image: url(${back_icon});
   width: 60px;
   height: 60px;

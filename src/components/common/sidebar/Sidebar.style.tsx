@@ -13,7 +13,7 @@ export const Sidebar = styled.div`
   background-position: center;
 `;
 
-export const Pill_Profile = styled.div`
+export const PillProfile = styled.div`
   background-image: url(${pill_profile});
   width: 130px;
   height: 130px;
@@ -25,14 +25,14 @@ export const Pill_Profile = styled.div`
   margin-right: auto;
 `;
 
-export const Text_Center = styled.div`
+export const TextCenter = styled.div`
   text-align: center;
   color: white;
   margin-top: 15px;
   margin-bottom: 15px;
 `;
 
-export const Logout_Button = styled(Button)`
+export const LogoutButton = styled(Button)`
   color: #f25f5f;
   border-radius: 15px;
   font-size: 18px;
@@ -42,7 +42,7 @@ export const Logout_Button = styled(Button)`
   margin-left: 45px;
 `;
 
-export const Logout_Image = styled.div`
+export const LogoutImage = styled.div`
   background-image: url(${logout_button});
   width: 40px;
   height: 40px;

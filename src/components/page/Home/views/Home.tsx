@@ -1,8 +1,8 @@
 import Navbar from "../../../common/sidebar/Sidebar";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../../../config/axiosInstance";
 import { Col, Space, Spin, Tooltip } from "antd";
-import { Box_Pill_Channel, Button_Tooltip, Main_Container, Pill_Channel_No, Pill_Name, Row_Container } from "../styles/Home.style";
+import { BoxPillChannel, ButtonTooltip, MainContainer, PillChannelNo, PillName, RowContainer } from "../styles/Home.style";
 import { TextTopic } from "components/page/History/styles/History.style";
 import { QuestionOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
@@ -15,7 +15,7 @@ interface IPillChannelData {
 }
 function Home() {
   const history = useHistory();
-  const [pillData, setPillData] = useState<IPillChannelData | undefined | any>([]);
+  const [pillData, setPillData] = useState<IPillChannelData[]>([]);
 
   async function ApiGetPillChannelData() {
     const accessToken: string = await CheckExpiredToken();
@@ -48,10 +48,10 @@ function Home() {
   const checkHaveData = (index: number, spanNum: number) => {
     if (pillData[index].pill_name !== "-1") {
       return (
-        <Box_Pill_Channel span={spanNum} onClick={() => history.push(`/detailPillScreen/${index + 1}`)}>
-          <Pill_Channel_No>ช่องที่{index + 1}</Pill_Channel_No>
-          <Pill_Name>{pillData[index].pill_name}</Pill_Name>
-        </Box_Pill_Channel>
+        <BoxPillChannel span={spanNum} onClick={() => history.push(`/detailPillScreen/${index + 1}`)}>
+          <PillChannelNo>ช่องที่{index + 1}</PillChannelNo>
+          <PillName>{pillData[index].pill_name}</PillName>
+        </BoxPillChannel>
       );
     } else {
       return (
@@ -66,24 +66,24 @@ function Home() {
   const channelDataLayout = () => {
     return (
       <div>
-        <Row_Container>
+        <RowContainer>
           {checkHaveData(0, 12)}
           {checkHaveData(1, 12)}
-        </Row_Container>
+        </RowContainer>
 
-        <Row_Container>
+        <RowContainer>
           {checkHaveData(2, 12)}
 
           {checkHaveData(3, 12)}
-        </Row_Container>
+        </RowContainer>
 
-        <Row_Container>
+        <RowContainer>
           {checkHaveData(4, 8)}
 
           {checkHaveData(5, 8)}
 
           {checkHaveData(6, 8)}
-        </Row_Container>
+        </RowContainer>
       </div>
     );
   };
@@ -92,7 +92,7 @@ function Home() {
     <>
       <Navbar />
       <TextTopic>KLONGYAA CHANNEL</TextTopic>
-      <Main_Container>
+      <MainContainer>
         {pillData.length === 0 ? (
           <Space size="middle" style={{ marginLeft: "400px" }}>
             <Spin size="large" />
@@ -100,9 +100,9 @@ function Home() {
         ) : (
           channelDataLayout()
         )}
-      </Main_Container>
+      </MainContainer>
       <Tooltip placement="leftBottom" title="จอแสดงผลกล่องยาของผู้ใช้งาน กดเพื่อเข้าไปดูรายละเอียดต่างๆ">
-        <Button_Tooltip shape="circle" icon={<QuestionOutlined />} />
+        <ButtonTooltip shape="circle" icon={<QuestionOutlined />} />
       </Tooltip>
     </>
   );

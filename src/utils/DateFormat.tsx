@@ -16,7 +16,7 @@ export function dateFormatNotYear(dateString: string) {
 
 export function timeFormat(dateTime: string) {
   const DATE = new Date(dateTime);
-  const hour = DATE.getHours() - 7;
+  const hour = DATE.getHours();
   const minute = DATE.getMinutes();
   let hourStr = hour.toString();
   let minuteStr = minute.toString();
