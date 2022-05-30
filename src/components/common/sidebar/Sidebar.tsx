@@ -14,19 +14,16 @@ interface IJwtToken {
   sub: string;
   username: string;
 }
-const accessToken: string | null = localStorage.getItem("accessToken");
 
 function Navbar() {
   const { logout } = useAuthContext();
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    if (accessToken) {
-      const decoded: IJwtToken = jwtDecode(accessToken);
-      console.log("[DECODED SIDEBAR]", decoded.email);
-      setEmail(decoded.email);
-    }
-  }, []);
+    const accessToken: string | null = localStorage.getItem("accessToken");
+    const decoded: IJwtToken = jwtDecode(accessToken as string);
+    setEmail(decoded.email);
+  }, [email]);
 
   return (
     <>
